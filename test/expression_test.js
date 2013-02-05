@@ -25,6 +25,10 @@ describe('Expression Parser', function(){
       e.parse('3.3 / 2').should.equal(1.65);
     });
 
+    it('should do exponents', function(){
+      e.parse('2 ^ 2').should.equal(4);
+    });
+
 
   });
 });
