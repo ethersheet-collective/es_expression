@@ -1,0 +1,21 @@
+{
+  "name": "es_expression",
+  "author": "tedsuo, cooperq",
+  "version": "0.0.1",
+  "description": "Ethersheet Expression Parser",
+  "main-browser": "parser.js",
+  "dependencies": {
+    "jison": "*",
+    "es_client": "git://github.com/ethersheet-collective/es_client.git"
+  },
+  "devDependencies": {
+    "mocha": ">=1.3.0",
+    "chai": "*"
+  },
+  "scripts": {
+    "test": "make"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}
