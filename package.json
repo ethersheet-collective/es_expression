@@ -1,6 +1,6 @@
 {
-  "name": "es_expression",
-  "author": "tedsuo, cooperq",
+  "name": "expression",
+  "author": "cooperq",
   "version": "0.0.1",
   "description": "Ethersheet Expression Parser",
   "main-browser": "parser.js",
