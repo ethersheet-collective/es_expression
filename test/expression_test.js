@@ -4,9 +4,12 @@ var should = require('chai').should();
 describe('Expression Parser', function(){
   describe('basic math', function(){
     it('should add numbers', function(){
-      e.parse('3+4').should.equal(7);
+      e.parse('3 + 4').should.equal(7);
       e.parse('-3 + 2').should.equal(-1);
       e.parse('3.4 + 1.2').should.equal(4.6);
+    });
+    it('should not care bout whitespace', function(){
+      e.parse('  3    +  2  ').should.equal(e.parse('3+2'));
     });
 
     it('should subtract numbers', function(){
@@ -29,6 +32,15 @@ describe('Expression Parser', function(){
       e.parse('2 ^ 2').should.equal(4);
     });
 
+    it('should respect order of operations', function(){
+      e.parse('2 - 2 + 3').should.equal(3);
+      e.parse('(3 - 1) ^ 2 - 1 * 3 + 2').should.equal(3);
+    });
+
+    it('should parse mathematical constants', function(){
+      e.parse('E').should.equal(Math.E);
+      e.parse('PI').should.equal(Math.PI);
+    });
 
   });
 });

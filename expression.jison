@@ -99,6 +99,8 @@ e
                 {$$ = Number(yytext);}
         | E
                 {$$ = Math.E;}
+        | PI
+                {$$ = Math.PI;}
 /*
         | FIXEDCELL
                 {$$ = yy.lexer.cellHandler.fixedCellValue.apply(yy.lexer.cell, [$1]);}
