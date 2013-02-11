@@ -15,6 +15,7 @@ describe('Expression Parser', function(){
     it('should subtract numbers', function(){
       e.parse('4 - 3').should.equal(1);
       e.parse('3 - 4').should.equal(-1);
+      e.parse('3--3').should.equal(6);
       e.parse('3.5 - 0.4').should.equal(3.1);
     });
 
@@ -52,6 +53,16 @@ describe('Expression Parser', function(){
       e.parse('3 >= 4').should.equal(false);
       e.parse('3 <= 4').should.equal(true);
       e.parse('4 <= 4').should.equal(true);
+      e.parse('4 = 4').should.equal(true);
+      e.parse('3 = 4').should.equal(false);
+    });
+  });
+  describe('other methods', function(){
+    it('should parse strings', function(){
+      e.parse('"foo"').should.equal('foo');
+    });
+    it('should parse percentages', function(){
+      e.parse('15% + 5%').should.equal(0.2);
     });
   });
 });

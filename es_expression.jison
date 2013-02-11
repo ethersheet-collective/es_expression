@@ -12,7 +12,6 @@
 [A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+                               {return 'CELLRANGE';}
 [A-Za-z]+[0-9]+                                                 {return 'CELL';}
 [A-Za-z]+                                                       {return 'IDENTIFIER';}
-[0-9]([0-9]?)[-/][0-9]([0-9]?)[-/][0-9]([0-9]?)([0-9]?)([0-9]?) {return 'DATE';}
 */
 [0-9]+[%]                                                       {return 'PERCENT';}
 [0-9]+("."[0-9]+)?                                              {return 'NUMBER';}
@@ -47,7 +46,7 @@
 /lex
 
 /* operator associations and precedence (low-top, high- bottom) */
-%left 'LTE' 'GTE' 'NE' 'NOT' '||'
+%left 'LTE' 'GTE' 'NE' 'NOT' '||' '='
 %left '>' '<'
 %left '+' '-'
 %left '*' '/'
@@ -73,6 +72,8 @@ e
                 {$$ = ($1 * 1) != ($3 * 1);}
         | e NOT e
                 {$$ = ($1 * 1) != ($3 * 1);}
+        | e '=' e
+                {$$ = $1 == $3;}
         | e '>' e
                 {$$ = ($1 * 1) > ($3 * 1);}
         | e '<' e
@@ -93,8 +94,6 @@ e
                 {$$ = $2;}
         | PERCENT
                 {$$ = ($1.replace(/%/,'') * 1) / 100;}
-        | DATE
-                {/*$$ = new Date($1).toString();*/}
         | NUMBER
                 {$$ = Number(yytext);}
         | E
