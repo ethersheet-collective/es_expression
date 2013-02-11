@@ -1,4 +1,4 @@
-var e = require('../expression.js').parser;
+var e = require('../es_expression').parser;
 var should = require('chai').should();
 
 describe('Expression Parser', function(){
@@ -42,5 +42,10 @@ describe('Expression Parser', function(){
       e.parse('PI').should.equal(Math.PI);
     });
 
+  });
+  describe('boolean logic', function(){
+    it('should work with basic boolean logic', function(){
+      e.parse('3 NOT 4').should.be_true
+    });
   });
 });
