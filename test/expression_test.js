@@ -48,9 +48,10 @@ describe('Expression Parser', function(){
       e.parse('3 NOT 4').should.equal(true);
       e.parse('4 NOT 4').should.equal(false);
       e.parse(' 4 < 3').should.equal(false);
-      e.parse(' 3 > 4').should.equal(true);
+      e.parse(' 4 > 3').should.equal(true);
       e.parse('3 >= 4').should.equal(false);
       e.parse('3 <= 4').should.equal(true);
+      e.parse('4 <= 4').should.equal(true);
     });
   });
 });
