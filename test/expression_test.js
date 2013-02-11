@@ -45,10 +45,12 @@ describe('Expression Parser', function(){
   });
   describe('boolean logic', function(){
     it('should work with basic boolean logic', function(){
-      e.parse('3 NOT 4').should.be_true
-      e.parse('4 NOT 4').should.be_false
-      e.parse(' 4 < 3').should.be_false
-      e.parse(' 3 < 4').should.be_true
+      e.parse('3 NOT 4').should.equal(true);
+      e.parse('4 NOT 4').should.equal(false);
+      e.parse(' 4 < 3').should.equal(false);
+      e.parse(' 3 > 4').should.equal(true);
+      e.parse('3 >= 4').should.equal(false);
+      e.parse('3 <= 4').should.equal(true);
     });
   });
 });

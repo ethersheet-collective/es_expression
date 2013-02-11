@@ -29,11 +29,11 @@
 "^"                             {return '^';}
 "("                             {return '(';}
 ")"                             {return ')';}
+">="                            {return 'GTE';}
+"<="                            {return 'LTE';}
+"<>"                            {return 'NE';}
 ">"                             {return '>';}
 "<"                             {return '<';}
-">="                            {return '>=';}
-"<="                            {return '<=';}
-"<>"                            {return '<>';}
 "NOT"                           {return 'NOT';}
 "PI"                            {return 'PI';}
 "E"                             {return 'E';}
@@ -47,7 +47,7 @@
 /lex
 
 /* operator associations and precedence (low-top, high- bottom) */
-%left '<=' '>=' '<>' 'NOT' '||'
+%left 'LTE' 'GTE' 'NE' 'NOT' '||'
 %left '>' '<'
 %left '+' '-'
 %left '*' '/'
@@ -65,9 +65,11 @@ expressions
  ;
 
 e
-        : e '<=' e
+        : e LTE e
                 {$$ = ($1 * 1) <= ($3 * 1);}
-        | e '<>' e
+        | e GTE e
+                {$$ = ($1 * 1) >= ($3 * 1);}
+        | e NE e
                 {$$ = ($1 * 1) != ($3 * 1);}
         | e NOT e
                 {$$ = ($1 * 1) != ($3 * 1);}
@@ -75,8 +77,6 @@ e
                 {$$ = ($1 * 1) > ($3 * 1);}
         | e '<' e
                 {$$ = ($1 * 1) < ($3 * 1);}
-        | e '>=' e
-                {$$ = ($1 * 1) >= ($3 * 1);}
         | e '+' e
                 {$$ = ($1 * 1) + ($3 * 1);}
         | e '-' e
