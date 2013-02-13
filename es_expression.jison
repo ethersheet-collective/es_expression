@@ -10,11 +10,10 @@
 'SHEET'[0-9]+[:!][A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+              {return 'REMOTECELLRANGE';}
 'SHEET'[0-9]+[:!][A-Za-z]+[0-9]+                                {return 'REMOTECELL';}
 [A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+                               {return 'CELLRANGE';}
-[A-Za-z]+[0-9]+                                                 {return 'CELL';}
-[A-Za-z]+                                                       {return 'IDENTIFIER';}
 */
+[A-Za-z]+[0-9]+                                                 {return 'CELL';}
 [0-9]+[%]                                                       {return 'PERCENT';}
-[0-9]+("."[0-9]+)?                                              {return 'NUMBER';}
+[0-9]+("."[0-9]+)?                                              {return 'NUMBER';} 
 "$"                             {/* skip whitespace */}
 " "                             {return ' ';}
 "."                             {return '.';}
@@ -100,13 +99,13 @@ e
                 {$$ = Math.E;}
         | PI
                 {$$ = Math.PI;}
+        | CELL
+                {$$ = yy.lexer.expressionHelpers.getCellValue($1)}
 /*
         | FIXEDCELL
                 {$$ = yy.lexer.cellHandler.fixedCellValue.apply(yy.lexer.cell, [$1]);}
         | FIXEDCELLRANGE
                 {$$ = yy.lexer.cellHandler.fixedCellRangeValue.apply(yy.lexer.cell, [$1]);}
-        | CELL
-                {$$ = yy.lexer.cellHandler.cellValue.apply(yy.lexer.cell, [$1]);}
         | CELLRANGE
                 {$$ = yy.lexer.cellHandler.cellRangeValue.apply(yy.lexer.cell, [$1]);}
         | REMOTECELL
