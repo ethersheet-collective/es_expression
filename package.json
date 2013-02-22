@@ -1,7 +1,7 @@
 {
   "name": "es_expression",
   "author": "cooperq",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ethersheet Expression Parser",
   "main-browser": "es_expression.js",
   "dependencies": {
