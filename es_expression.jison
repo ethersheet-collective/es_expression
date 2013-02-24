@@ -100,7 +100,7 @@ e
         | PI
                 {$$ = Math.PI;}
         | CELL
-                {$$ = yy.lexer.expressionHelpers.getCellValue($1)}
+                {$$ = yy.getCellValue($1)}
 /*
         | FIXEDCELL
                 {$$ = yy.lexer.cellHandler.fixedCellValue.apply(yy.lexer.cell, [$1]);}

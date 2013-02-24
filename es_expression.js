@@ -47,7 +47,7 @@ case 18:this.$ = Math.E;
 break;
 case 19:this.$ = Math.PI;
 break;
-case 20:this.$ = yy.lexer.expressionHelpers.getCellValue($$[$0])
+case 20:this.$ = yy.getCellValue($$[$0])
 break;
 case 21:this.$ = $$[$0].substring(1, $$[$0].length - 1);
 break;
