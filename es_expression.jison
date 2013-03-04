@@ -10,6 +10,7 @@
 'SHEET'[0-9]+[:!][A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+              {return 'REMOTECELLRANGE';}
 'SHEET'[0-9]+[:!][A-Za-z]+[0-9]+                                {return 'REMOTECELL';}
 [A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+                               {return 'CELLRANGE';}
+[0-9]([0-9]?)[-/][0-9]([0-9]?)[-/][0-9]([0-9]?)([0-9]?)([0-9]?) {return 'DATE';}
 */
 [A-Za-z]+[0-9]+                                                 {return 'CELL';}
 [0-9]+[%]                                                       {return 'PERCENT';}
@@ -40,6 +41,7 @@
 "!"                             {return "!";}
 <<EOF>>                         {return 'EOF';}
 "="                             {return '=';}
+[A-Za-z]+                       {return 'IDENTIFIER';}
 
 
 /lex
@@ -112,11 +114,11 @@ e
                 {$$ = yy.lexer.cellHandler.remoteCellValue.apply(yy.lexer.cell, [$1]);}
         | REMOTECELLRANGE
                 {$$ = yy.lexer.cellHandler.remoteCellRangeValue.apply(yy.lexer.cell, [$1]);}
-        | IDENTIFIER '(' ')'
-                {$$ = yy.lexer.cellHandler.callFunction($1, '', yy.lexer.cell);}
-        | IDENTIFIER '(' expseq ')'
-                {$$ = yy.lexer.cellHandler.callFunction($1, $3, yy.lexer.cell);}
 */
+        | IDENTIFIER '(' ')'
+                {$$ = yy.callFunction($1, '', yy.currentCell);}
+        | IDENTIFIER '(' expseq ')'
+                {$$ = yy.callFunction($1, $3, yy.currentCell);}
         | STRING
                 {$$ = $1.substring(1, $1.length - 1);}  
  ;
