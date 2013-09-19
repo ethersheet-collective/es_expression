@@ -9,9 +9,10 @@
 '$'[A-Za-z]+'$'[0-9]+                                           {return 'FIXEDCELL';}
 'SHEET'[0-9]+[:!][A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+              {return 'REMOTECELLRANGE';}
 'SHEET'[0-9]+[:!][A-Za-z]+[0-9]+                                {return 'REMOTECELL';}
-[A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+                               {return 'CELLRANGE';}
 [0-9]([0-9]?)[-/][0-9]([0-9]?)[-/][0-9]([0-9]?)([0-9]?)([0-9]?) {return 'DATE';}
 */
+'cellReference'[(][^):]*[)][:]'cellReference'[(][^):]*[)]       {return 'CELLRANGE';}
+[A-Za-z]+[0-9]+[:][A-Za-z]+[0-9]+                               {return 'CELLRANGE';}
 [A-Za-z]+[0-9]+                                                 {return 'CELL';}
 [0-9]+[%]                                                       {return 'PERCENT';}
 [0-9]+("."[0-9]+)?                                              {return 'NUMBER';} 
@@ -103,13 +104,13 @@ e
                 {$$ = Math.PI;}
         | CELL
                 {$$ = yy.parseCellValue($1)}
+        | CELLRANGE
+                {$$ = yy.parseCellRange($1)}
 /*
         | FIXEDCELL
                 {$$ = yy.lexer.cellHandler.fixedCellValue.apply(yy.lexer.cell, [$1]);}
         | FIXEDCELLRANGE
                 {$$ = yy.lexer.cellHandler.fixedCellRangeValue.apply(yy.lexer.cell, [$1]);}
-        | CELLRANGE
-                {$$ = yy.lexer.cellHandler.cellRangeValue.apply(yy.lexer.cell, [$1]);}
         | REMOTECELL
                 {$$ = yy.lexer.cellHandler.remoteCellValue.apply(yy.lexer.cell, [$1]);}
         | REMOTECELLRANGE
