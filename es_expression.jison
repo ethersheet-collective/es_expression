@@ -1,3 +1,5 @@
+
+/* If this file is modified copy the generated es_expression.js file to es_client/vendor/ */
 /* lexical grammar */
 %lex
 %%
